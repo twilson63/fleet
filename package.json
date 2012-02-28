@@ -1,0 +1,51 @@
+{
+    "name" : "fleet",
+    "description" : "command a cluster of processes ",
+    "version" : "0.0.0",
+    "repository" : {
+        "type" : "git",
+        "url" : "git://github.com/substack/fleet.git"
+    },
+    "main" : "index.js",
+    "bin" : {
+        "fleet" : "bin/command.sh",
+        "fleet-deploy" : "bin/deploy.js",
+        "fleet-drone" : "bin/drone.js",
+        "fleet-hub" : "bin/hub.js",
+        "fleet-list" : "bin/list.js",
+        "fleet-monitor" : "bin/monitor.js",
+        "fleet-router" : "bin/router.js",
+        "fleet-spawn" : "bin/spawn.js"
+    },
+    "keywords" : [
+        "cluster",
+        "management",
+        "staging"
+    ],
+    "directories" : {
+        "lib" : ".",
+        "example" : "example",
+        "test" : "test"
+    },
+    "scripts" : {
+        "test" : "tap test/*.js"
+    },
+    "dependencies" : {
+        "propagit" : "~0.4.1",
+        "seaport" : "~0.4.0",
+        "optimist" : "~0.3.1",
+        "bouncy" : "~1.1.1"
+    },
+    "devDependencies" : {
+        "tap" : "0.0.x"
+    },
+    "engines" : {
+        "node" : ">=0.4.0"
+    },
+    "license" : "MIT",
+    "author" : {
+        "name" : "James Halliday",
+        "email" : "mail@substack.net",
+        "url" : "http://substack.net"
+    }
+}
