@@ -37,7 +37,19 @@ p.hub(function (hub) {
 });
 
 function deploy (hub, opts) {
-    hub.deploy(opts, function (cb) {
-        p.hub.close();
+    var remote = 'http://' + argv.hub.split(':')[0]
+        + ':' + hub.ports.git + '/' + opts.repo;
+    
+    git.push(remote, function (err) {
+        if (err) {
+            console.error(err);
+            p.hub.close();
+        }
+        else {
+            hub.deploy(opts, function () {
+                console.log('deployed ' + opts.repo + '/' + opts.commit);
+                p.hub.close();
+            });
+        }
     });
 }
