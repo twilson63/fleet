@@ -16,7 +16,7 @@ p.on('error', function (err) {
 p.hub(function (hub) {
     var opts = {
         drone : argv.drone,
-        repo : argv.repo || git.repo(),
+        repo : argv.repo || git.repoName(),
         commit : argv.commit
     };
     if (!opts.repo) {
