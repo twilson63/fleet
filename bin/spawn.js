@@ -2,9 +2,7 @@
 var argv = require('optimist').argv;
 var propagit = require('propagit');
 var seaport = require('seaport');
-var EventEmitter = require('events').EventEmitter;
-
-// todo: infer repo from dirname and commit from `git log|head -n1`
+var git = require('../lib/git');
 
 var p = propagit(argv);
 p.on('error', function (err) {
@@ -14,11 +12,41 @@ p.on('error', function (err) {
 p.hub(function (hub) {
     var opts = {
         drone : argv.drone,
+        repo : argv.repo || git.repoName(),
+        commit : argv.commit,
         command : argv._,
-        repo : argv.repo,
+    };
+});
+
+p.hub(function (hub) {
+    var opts = {
+        drone : argv.drone,
+        repo : argv.repo || git.repoName(),
         commit : argv.commit
     };
+    if (!opts.repo) {
+        console.error('specify --repo or navigate to a git repo');
+        return;
+    }
+    if (!opts.commit) git.commit(function (err, commit) {
+        if (err) {
+            console.error(err);
+            p.hub.close();
+        }
+        else {
+            opts.commit = commit;
+            spawn(hub, opts);
+        }
+    })
+    else spawn(hub, opts);
+});
+
+function spawn (hub, opts) {
     hub.spawn(opts, function (cb) {
+        console.log(
+            'spawned ' + opts.repo + '/' + opts.commit
+            + ': ' + opts.command
+        );
         p.hub.close();
     });
-});
+}
