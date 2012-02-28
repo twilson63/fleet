@@ -16,14 +16,6 @@ p.hub(function (hub) {
         commit : argv.commit,
         command : argv._,
     };
-});
-
-p.hub(function (hub) {
-    var opts = {
-        drone : argv.drone,
-        repo : argv.repo || git.repoName(),
-        commit : argv.commit
-    };
     if (!opts.repo) {
         console.error('specify --repo or navigate to a git repo');
         return;
