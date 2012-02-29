@@ -1,16 +1,14 @@
 #!/usr/bin/env node
-var argv = require('optimist').argv;
 var propagit = require('propagit');
 var seaport = require('seaport');
 var EventEmitter = require('events').EventEmitter;
 
 var git = require('../lib/git');
-
-// todo: infer repo from dirname and commit from `git log|head -n1`
+var argv = require('../lib/argv');
 
 var p = propagit(argv);
 p.on('error', function (err) {
-    console.dir(err);
+    console.log(err.stack || err.toString());
 });
 
 p.hub(function (hub) {
@@ -37,10 +35,10 @@ p.hub(function (hub) {
 });
 
 function deploy (hub, opts) {
-    var remote = 'http://' + argv.hub.split(':')[0]
+    var ref = 'http://' + argv.hub.split(':')[0]
         + ':' + hub.ports.git + '/' + opts.repo;
     
-    git.push(remote, function (err) {
+    git.push(ref, function (err) {
         if (err) {
             console.error(err);
             p.hub.close();
