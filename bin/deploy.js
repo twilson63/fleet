@@ -13,7 +13,6 @@ p.on('error', function (err) {
 
 p.hub(function (hub) {
     var opts = {
-        drone : argv.drone,
         repo : argv.repo || git.repoName(),
         commit : argv.commit
     };
@@ -43,11 +42,19 @@ function deploy (hub, opts) {
             console.error(err);
             p.hub.close();
         }
-        else {
-            hub.deploy(opts, function () {
+        else hub.deploy(opts, function (errors) {
+            if (errors) {
+                errors.forEach(function (err) {
+                    console.error(
+                        '[' + err.drone + '] '
+                        + (err.code === 128 ? 'already at latest' : err)
+                    );
+                });
+            }
+            else {
                 console.log('deployed ' + opts.repo + '/' + opts.commit);
-                p.hub.close();
-            });
-        }
+            }
+            p.hub.close();
+        });
     });
 }
