@@ -9,6 +9,7 @@
     "main" : "index.js",
     "bin" : {
         "fleet" : "bin/command.sh",
+        "fleet-remote" : "bin/remote.js",
         "fleet-deploy" : "bin/deploy.js",
         "fleet-drone" : "bin/drone.js",
         "fleet-hub" : "bin/hub.js",
@@ -34,7 +35,8 @@
         "propagit" : "~0.4.1",
         "seaport" : "~0.4.0",
         "optimist" : "~0.3.1",
-        "bouncy" : "~1.1.1"
+        "bouncy" : "~1.1.1",
+        "mkdirp" : "~0.3.0"
     },
     "devDependencies" : {
         "tap" : "0.0.x"
