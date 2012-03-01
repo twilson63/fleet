@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var argv = require('optimist').argv;
+var argv = require('../lib/argv');
 var propagit = require('propagit');
 var seaport = require('seaport');
 var git = require('../lib/git');
@@ -12,6 +12,7 @@ p.on('error', function (err) {
 p.hub(function (hub) {
     var opts = {
         drone : argv.drone,
+        drones : argv.drones,
         repo : argv.repo || git.repoName(),
         commit : argv.commit,
         command : argv._,
@@ -34,10 +35,11 @@ p.hub(function (hub) {
 });
 
 function spawn (hub, opts) {
-    hub.spawn(opts, function (cb) {
+    hub.spawn(opts, function (err, id) {
         console.log(
-            'spawned ' + opts.repo + '/' + opts.commit
-            + ': ' + opts.command
+            '[' + id + '] '
+            + 'spawned ' + opts.repo + '/' + opts.commit
+            + ': ' + opts.command.join(' ')
         );
         p.hub.close();
     });

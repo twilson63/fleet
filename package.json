@@ -32,7 +32,7 @@
         "test" : "tap test/*.js"
     },
     "dependencies" : {
-        "propagit" : "~0.4.2",
+        "propagit" : "~0.4.3",
         "seaport" : "~0.4.0",
         "optimist" : "~0.3.1",
         "bouncy" : "~1.1.1",
