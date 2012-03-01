@@ -15,7 +15,6 @@
         "fleet-hub" : "bin/hub.js",
         "fleet-ps" : "bin/ps.js",
         "fleet-monitor" : "bin/monitor.js",
-        "fleet-router" : "bin/router.js",
         "fleet-spawn" : "bin/spawn.js",
         "fleet-stop" : "bin/stop.js"
     },
