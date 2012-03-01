@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 var propagit = require('propagit');
-var seaport = require('seaport');
 var argv = require('optimist').argv;
 
 var cport = argv.cport || argv.port || argv._[0];
-var sport = argv.sport || cport + 1;
-var gport = argv.gport || sport + 1;
+var gport = argv.gport || cport + 1;
 
 var prop = propagit(argv).listen(cport, gport);
-prop.ports.seaport = sport;
 
 var subs = {};
 prop.use(function (service, conn) {
@@ -28,6 +25,3 @@ prop.use(function (service, conn) {
         }
     };
 });
-
-var ports = seaport.createServer();
-ports.listen(sport);

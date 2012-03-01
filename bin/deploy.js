@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 var propagit = require('propagit');
-var seaport = require('seaport');
-var EventEmitter = require('events').EventEmitter;
 
 var git = require('../lib/git');
 var argv = require('../lib/argv');

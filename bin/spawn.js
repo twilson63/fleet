@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 var argv = require('../lib/argv');
 var propagit = require('propagit');
-var seaport = require('seaport');
 var git = require('../lib/git');
 
 var p = propagit(argv);

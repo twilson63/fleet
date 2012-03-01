@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 var argv = require('optimist').argv;
 var propagit = require('propagit');
-var seaport = require('seaport');
 var EventEmitter = require('events').EventEmitter;
 
 var p = propagit(argv);

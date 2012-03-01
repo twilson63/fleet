@@ -1,14 +1,7 @@
 #!/usr/bin/env node
 var argv = require('optimist').argv;
-var seaport = require('seaport');
 var propagit = require('propagit');
 var drone = propagit(argv).drone();
-
-var ports = null;
-drone.hub(function (hub) {
-    var host = argv.hub.split(':')[0];
-    ports = seaport.connect(host, hub.ports.seaport);
-});
 
 var emit = function () {
     var args = [].slice.call(arguments);
