@@ -15,6 +15,7 @@ p.hub(function (hub) {
         repo : argv.repo || git.repoName(),
         commit : argv.commit,
         command : argv._,
+        env : argv.env || {},
     };
     if (!opts.repo) {
         console.error('specify --repo or navigate to a git repo');

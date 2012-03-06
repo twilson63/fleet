@@ -111,6 +111,9 @@ Spin up `command` on a random drone.
 
 You can control which drone by specifying `--drone=id`.
 
+Your spawned process will get the $REPO name, $COMMIT hash, $DRONE_ID, and
+$PROCESS_ID as environment variables from propagit.
+
 fleet stop id
 --------------
 
