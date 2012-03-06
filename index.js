@@ -25,6 +25,28 @@ Commands.prototype.ps = function (cb) {
         hub.ps(em.emit.bind(em));
     });
 }
+Commands.prototype.stop = function (pid, cb) {
+    var self = this;
+    var p = propagit(self.opts);
+    var called = false;
+    p.on('error', function (err) {
+        if (!called) cb(err);
+        called = true;
+    });
+
+    p.hub(function (hub) {
+        var opts = {
+            drone : self.opts.drone,
+            drones : self.opts.drones,
+            pid : pid
+        };
+        hub.stop(opts, function (drone) {
+            p.hub.close();
+            if (!called) cb(null, drone);
+            called = true;
+        });
+    });
+}
 
 module.exports = function (opts) {
     return new Commands(opts)
