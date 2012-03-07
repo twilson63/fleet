@@ -137,6 +137,12 @@ $ fleet spawn -- node server.js 8888
 (spawned a25d7033#edc743)
 ```
 
+fleet exec OPTIONS -- command...
+--------------------------------
+
+Like `fleet spawn` except `command` doesn't restart itself and the output of the
+command is printed to the terminal.
+
 fleet stop id0 [id1, id2...]
 ----------------------------
 
