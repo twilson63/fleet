@@ -15,36 +15,49 @@ drone.on('error', function (err) {
     console.error(err && err.stack || err);
 });
 
+drone.on('deploy', function (deploy) {
+    emit('deploy', deploy);
+    console.log(
+        '(deployed '
+        + deploy.repo + '/' + deploy.commit.slice(8)
+        + ')'
+    );
+});
+
 drone.on('spawn', function (proc) {
     emit('spawn', proc);
     console.log(
-        '[' + proc.repo + '.' + proc.commit.slice(8) + '] '
-        + proc.command.join(' ')
+        '(spawned ' + proc.id + '#' + proc.repo + '.' + proc.commit.slice(8)
+        + ' : ' + proc.command.join(' ') + ')'
     );
 });
 
 drone.on('exit', function (code, sig, opts) {
     emit('exit', code, sig, opts);
-    console.error([
-        '[' + opts.repo + '.' + opts.commit.slice(8) + ']',
-        opts.command.join(' '),
-        'exited with code', code,
-        'from', sig,
-    ].join(' '));
+    console.error(
+        '(exited '
+        + opts.id + '#' + opts.repo + '.' + opts.commit.slice(8)
+        + ' with code ' + code
+        + ' from signal ' + sig
+        + ': ' + opts.command.join(' ')
+        + ')'
+    );
 });
 
 drone.on('stdout', function (buf, opts) {
     emit('stdout', buf.toString(), opts);
-    console.log('['
-        + opts.repo + '.' + opts.commit.slice(8)
-    + '] ' + buf);
+    console.log(
+        '[' + opts.id + '#' + opts.repo + '.' + opts.commit.slice(8)
+        + '] ' + buf.toString().replace(/\n$/, '')
+    );
 });
 
 drone.on('stderr', function (buf, opts) {
     emit('stderr', buf.toString(), opts);
-    console.log('['
-        + opts.repo + '.' + opts.commit.slice(8)
-    + '] ' + buf);
+    console.log(
+        '[' + opts.id + '#' + opts.repo + '.' + opts.commit.slice(8)
+        + '] ' + buf.toString().replace(/\n$/, '')
+    );
 });
 
 drone.on('up', function () {

@@ -35,12 +35,11 @@ p.hub(function (hub) {
 });
 
 function spawn (hub, opts) {
-    hub.spawn(opts, function (err, id) {
-        console.log(
-            '[' + id + '] '
-            + 'spawned ' + opts.repo + '/' + opts.commit
-            + ': ' + opts.command.join(' ')
-        );
+    hub.spawn(opts, function (err, procs) {
+        Object.keys(procs).forEach(function (droneId) {
+            var id = procs[droneId];
+            console.log('(spawned ' + droneId + '#' + id + ')');
+        });
         p.hub.close();
     });
 }

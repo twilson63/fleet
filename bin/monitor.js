@@ -10,6 +10,15 @@ p.on('error', function (err) {
 
 p.hub.on('up', function (hub) {
     var em = new EventEmitter;
+    
+    em.on('deploy', function (deploy) {
+        console.log(
+            '(deployed '
+            + deploy.drone + '#' + deploy.repo + '/' + deploy.commit
+            + ')'
+        );
+    });
+    
     em.on('spawn', function (proc) {
         console.log(
             '(spawned '

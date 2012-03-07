@@ -114,15 +114,15 @@ You can control which drone by specifying `--drone=id`.
 Your spawned process will get the $REPO name, $COMMIT hash, $DRONE_ID, and
 $PROCESS_ID as environment variables from propagit.
 
-fleet stop id
---------------
+fleet stop id0 [id1, id2...]
+----------------------------
 
-Stop a process. Get the `id` by running `fleet ps`. It doesn't matter which
+Stop processes. Get each `id` by running `fleet ps`. It doesn't matter which
 drone the process is running on, fleet spams the request out to all the drones
 and ignores the request if the drone doesn't have the requested process id.
 
 fleet monitor
 -------------
 
-Work in progress. This command will let you listen to all the events ever across
-the whole cluster.
+Show all spawn, exit, stdout, and stderr events happening everywhere across all
+of the drones.
