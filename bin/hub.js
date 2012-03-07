@@ -22,6 +22,7 @@ prop.use(function (service, conn) {
                 delete subs[conn.id];
             });
             subs[conn.id] = emit;
+            emit('ready');
         }
     };
 });

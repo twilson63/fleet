@@ -15,7 +15,9 @@ p.hub.on('up', function (hub) {
     });
     
     em.on('stdout', function (buf, opts) {
-        console.dir([ 'stdout', buf, opts ]);
+        if (opts) {
+            console.dir([ 'stdout', buf, opts ]);
+        }
     });
     
     hub.subscribe(em.emit.bind(em));
