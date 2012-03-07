@@ -15,11 +15,11 @@ drone.on('error', function (err) {
     console.error(err && err.stack || err);
 });
 
-drone.on('spawn', function (id, opts) {
-    emit('spawn', id, opts);
+drone.on('spawn', function (proc) {
+    emit('spawn', proc);
     console.log(
-        '[' + opts.repo + '.' + opts.commit.slice(8) + '] '
-        + opts.command.join(' ')
+        '[' + proc.repo + '.' + proc.commit.slice(8) + '] '
+        + proc.command.join(' ')
     );
 });
 
