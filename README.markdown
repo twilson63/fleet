@@ -154,7 +154,7 @@ Leading `'pid#'` strings are ignored on ids so you can more easily copy the pids
 from `fleet ps` output.
 
 ```
-fleet stop 1e99f4 d7048a
+$ fleet stop 1e99f4 d7048a
 [3dfe17b8] stopped 1e99f4 d7048a
 ```
 
