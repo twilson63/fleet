@@ -1,7 +1,10 @@
 #!/usr/bin/env node
-var argv = require('../lib/argv');
-var propagit = require('propagit');
 var EventEmitter = require('events').EventEmitter;
+
+var propagit = require('propagit');
+var archy = require('archy');
+
+var argv = require('../lib/argv');
 
 var p = propagit(argv);
 p.on('error', function (err) {
@@ -14,23 +17,21 @@ function text (hub) {
     var em = new EventEmitter;
     
     em.on('data', function (key, procs) {
-        console.log('drone#' + key);
-        
-        var pids = Object.keys(procs);
-        pids.forEach(function (pid, ix) {
-            var last = ix === pids.length - 1;
-            var p = procs[pid];
-            console.log(
-                (last ? '└' : '├') + '─┬ '
-                + 'pid#' + pid
-            );
-            console.log([
-                '',
-                ' ├── status:   ' + p.status,
-                ' ├── commit:   ' + p.repo + '/' + p.commit,
-                ' └── command:  ' + p.command.join(' '),
-            ].join('\n' + (last ? ' ' : '│')).slice(1));
+        var s = archy({
+            label : 'drone#' + key,
+            nodes : Object.keys(procs).map(function (id) {
+                var p = procs[id];
+                return {
+                    label : 'pid#' + id,
+                    nodes : [
+                        'status:   ' + p.status,
+                        'commit:   ' + p.repo + '/' + p.commit,
+                        'command:  ' + p.command.join(' '),
+                    ],
+                }
+            }),
         });
+        console.log(Object.keys(procs).length ? s : s.replace(/\n$/, ''));
     });
     
     em.on('end', function () {

@@ -1,7 +1,7 @@
 {
     "name" : "fleet",
     "description" : "command a cluster of processes ",
-    "version" : "0.0.4",
+    "version" : "0.0.5",
     "repository" : {
         "type" : "git",
         "url" : "git://github.com/substack/fleet.git"
@@ -35,7 +35,8 @@
     "dependencies" : {
         "propagit" : "~0.5.3",
         "optimist" : "~0.3.1",
-        "mkdirp" : "~0.3.0"
+        "mkdirp" : "~0.3.0",
+        "archy" : "~0.0.2"
     },
     "devDependencies" : {
         "tap" : "0.0.x"
