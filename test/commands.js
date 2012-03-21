@@ -118,7 +118,6 @@ test('fleet drone stop', function (t) {
             drone.kill('SIGHUP');
         });
     });
-    t.end();
 });
 
 test('fleet hub stop', function (t) {
