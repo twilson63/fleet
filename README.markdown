@@ -7,6 +7,8 @@ This module integrates with git using
 [propagit](https://github.com/substack/propagit),
 to make rolling out new code to a bunch of worker drones super simple!
 
+[![build status](https://secure.travis-ci.org/substack/fleet.png)](http://travis-ci.org/substack/fleet)
+
 ![fleet](http://substack.net/images/fleet.png)
 
 install
