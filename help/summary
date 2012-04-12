@@ -1,1 +1,14 @@
-beepity boop
+Usage: fleet <command> [<args>]
+
+The commands are:
+  deploy   Push code to drones.
+  drone    Connect to a hub as a worker.
+  exec     Run commands on drones.
+  hub      Create a hub for drones to listen to.
+  monitor  Show events and process output system-wide.
+  ps       List the running processes on the drones.
+  remote   Manage the set of remote hubs.
+  spawn    Run services on drones.
+  stop     Stop processes running on drones.
+
+For help about a command, try `fleet help <command>`.
