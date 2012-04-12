@@ -1,6 +1,6 @@
 var test = require('tap').test;
 var mkdirp = require('mkdirp');
-var seq = require('propagit/node_modules/pushover/node_modules/seq');
+var seq = require('seq');
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 var basedir = '/tmp/fleet-' +Math.floor(Math.random() * (1<<24));
