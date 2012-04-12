@@ -5,6 +5,7 @@ var propagit = require('propagit');
 var archy = require('archy');
 
 var argv = require('../lib/argv');
+if (!argv.hub) return console.error('Specify a --hub or set a remote.');
 
 var p = propagit(argv);
 p.on('error', function (err) {

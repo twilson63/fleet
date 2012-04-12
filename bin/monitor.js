@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 var argv = require('../lib/argv');
+if (!argv.hub) return console.error('Specify a --hub or set a remote.');
+
 var propagit = require('propagit');
 var EventEmitter = require('events').EventEmitter;
 
