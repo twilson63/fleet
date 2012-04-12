@@ -1,2 +1,6 @@
 #!/bin/bash
-fleet-$*
+if test -z "$*"; then
+  fleet-help
+else
+  fleet-$*
+fi
