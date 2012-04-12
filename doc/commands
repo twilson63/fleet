@@ -5,7 +5,7 @@ The commands are:
   drone    Connect to a hub as a worker.
   exec     Run commands on drones.
   hub      Create a hub for drones to connect.
-  monitor  Show events and process output system-wide.
+  monitor  Show service events system-wide.
   ps       List the running processes on the drones.
   remote   Manage the set of remote hubs.
   spawn    Run services on drones.
