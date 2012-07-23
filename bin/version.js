@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-console.log('0.0.9');
+console.log(require('../package.json').version);
