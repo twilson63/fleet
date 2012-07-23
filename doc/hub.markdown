@@ -7,8 +7,8 @@ fleet-hub(1) -- Create a hub for drones to connect.
 
 ## DESCRIPTION
 
-This command will create and update a file called `fleet.json` in your git
-project root so that you don't need to type `--hub` and `--secret` all the time.
+This command creates a git server to accept git pushes and a command server to
+accept drone connections.
 
 ## OPTIONS
 
