@@ -33,7 +33,9 @@ p.hub(function (hub) {
 });
 
 function deploy (hub, opts) {
-    var ref = 'http://' + argv.hub.split(':')[0]
+    var ref = 'http://'
+        + (argv.secret ? 'git:' + encodeURIComponent(argv.secret) + '@' : '')
+        + argv.hub.split(':')[0]
         + ':' + hub.ports.git + '/' + opts.repo;
     
     git.push(ref, function (err) {

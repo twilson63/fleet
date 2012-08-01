@@ -41,9 +41,10 @@ test('fleet drone', function (t) {
 });
 
 test('git init, git add, git commit, fleet remote add, fleet deploy, fleet spawn', function (t) {
-    t.plan(4);
+    t.plan(5);
 
     process.chdir(dir.gitRepo);
+    var number = Math.random();
 
     seq()
         .seq(function () {
@@ -52,7 +53,10 @@ test('git init, git add, git commit, fleet remote add, fleet deploy, fleet spawn
             ps.on('exit', this.ok);
         })
         .seq(function () {
-            fs.writeFile(dir.gitRepo + '/server.js', 'console.log("Hello World!")', this);
+            fs.writeFile(dir.gitRepo + '/server.js', [
+                "console.log('Hello World!')",
+                "require('fs').writeFileSync('_number', '" + number + "')"
+            ].join('\n'), this);
         })
         .seq(function () {
             spawn('git', [ 'add', 'server.js' ]).on('exit', this.ok);
@@ -74,6 +78,7 @@ test('git init, git add, git commit, fleet remote add, fleet deploy, fleet spawn
             ps.stderr.pipe(process.stderr, { end : false });
             ps.on('exit', function (code, signal) {
                 t.ok(true, 'fleet deploy');
+console.dir(dir.drone.map(function (d) { return fs.readdirSync(d + '/deploy') }));
                 next();
             });
         })
