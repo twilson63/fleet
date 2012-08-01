@@ -5,7 +5,7 @@ var fs = require('fs');
 var spawn = require('child_process').spawn;
 var basedir = '/tmp/fleet-' +Math.floor(Math.random() * (1<<24));
 var dir = {
-    hub : basedir +'/hub',
+    hub : basedir + '/hub',
     drone : [ 0, 1, 2 ].map(function (x) {
         return basedir +'/' +x;
     }),
@@ -31,12 +31,16 @@ test('fleet drone', function (t) {
     t.plan(3);
     dir.drone.forEach(function (cwd) {
         var args = [ '--secret=abc', '--hub=localhost:' +port ];
-        procs.drone.push(fleet('drone.js', args, { cwd: cwd }))
-        procs.drone[procs.drone.length-1]
-            .stdout.on('data', function (data) {
-                t.ok(String(data).match(/hub/), 'drone should output connection information');
-            })
-        ;
+        var ps = fleet('drone.js', args, { cwd: cwd });
+        procs.drone.push(ps);
+        ps.stdout.on('data', function (data) {
+            t.ok(
+                String(data).match(/hub/),
+                'drone should output connection information'
+            );
+        });
+        ps.stdout.pipe(process.stdout, { end : false });
+        ps.stderr.pipe(process.stderr, { end : false });
     });
 });
 
@@ -136,5 +140,5 @@ test('fleet hub stop', function (t) {
 });
 
 function fleet (cmd, args, opts) {
-    return spawn(__dirname +'/../bin/' +cmd, args, opts);
+    return spawn(__dirname +'/../bin/' + cmd, args, opts);
 }
