@@ -33,10 +33,22 @@ p.hub(function (hub) {
 });
 
 function deploy (hub, opts) {
-    var ref = 'http://'
-        + (argv.secret ? 'git:' + encodeURIComponent(argv.secret) + '@' : '')
-        + argv.hub.split(':')[0]
-    ;
+    var ref = (function () {
+        var auth = argv.secret
+            ? 'git:' + encodeURIComponent(argv.secret) + '@'
+            : ''
+        ;
+        var uri = argv.git;
+        if (!uri) {
+            var xs = argv.hub.split(':');
+            var gitPort = argv.gitPort
+                || argv.gitport
+                || parseInt(xs[1], 10) + 1
+            ;
+            uri = xs[0] + ':' + gitPort;
+        }
+        return 'http://' + auth + uri;
+    })();
     
     git.push(ref, function (err) {
         if (err) {
