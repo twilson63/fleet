@@ -48,28 +48,31 @@ function spawn (hub, opts) {
             if (err) {
                 console.error(err)
                 p.hub.close();
+                return;
             }
-            else {
-                em.on('stdout', function (buf, proc) {
-                    if (procs[proc.drone] !== proc.id) return;
-                    console.log(
-                        '[' + proc.drone + '#' + proc.id + '] '
-                        + buf.replace(/\n$/, '')
-                    );
-                });
-                em.on('stderr', function (buf, proc) {
-                    if (procs[proc.drone] !== proc.id) return;
-                    console.log(
-                        '[' + proc.drone + '#' + proc.id + '] '
-                        + buf.replace(/\n$/, '')
-                    );
-                });
-                em.on('exit', function (code, sig, proc) {
-                    if (procs[proc.drone] !== proc.id) return;
-                    console.log('(' + proc.drone + '#' + proc.id + ' exited)');
-                    p.hub.close();
-                });
-            }
+            
+            em.on('stdout', function (buf, proc) {
+                if (procs[proc.drone] !== proc.id) return;
+                console.log(
+                    '[' + proc.drone + '#' + proc.id + '] '
+                    + buf.replace(/\n$/, '')
+                );
+            });
+            em.on('stderr', function (buf, proc) {
+                if (procs[proc.drone] !== proc.id) return;
+                console.log(
+                    '[' + proc.drone + '#' + proc.id + '] '
+                    + buf.replace(/\n$/, '')
+                );
+            });
+            
+            var pending = Object.keys(procs).length;
+            em.on('exit', function (code, sig, proc) {
+                if (procs[proc.drone] !== proc.id) return;
+                console.log('(' + proc.drone + '#' + proc.id + ' exited)');
+                
+                if (--pending === 0) p.hub.close();
+            });
         });
     });
 }
