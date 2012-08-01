@@ -33,8 +33,10 @@ p.hub(function (hub) {
 });
 
 function deploy (hub, opts) {
-    var ref = 'http://' + argv.hub.split(':')[0]
-        + ':' + hub.ports.git + '/' + opts.repo;
+    var ref = 'http://'
+        + (argv.secret ? 'git:' + encodeURIComponent(argv.secret) + '@' : '')
+        + argv.hub.split(':')[0]
+    ;
     
     git.push(ref, function (err) {
         if (err) {
