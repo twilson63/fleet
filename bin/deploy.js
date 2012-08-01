@@ -47,7 +47,8 @@ function deploy (hub, opts) {
             ;
             uri = xs[0] + ':' + gitPort;
         }
-        return 'http://' + auth + uri;
+        var r = opts.repo.replace(/(\.git)?$/, '.git');
+        return 'http://' + auth + uri + '/' + r;
     })();
     
     git.push(ref, function (err) {
