@@ -11,6 +11,7 @@ Connect to a fleet hub and register as a worker drone.
 
 ## OPTIONS
 
+* --name - name to give this drone, defaults to `os.hostname()`
 * --hub - connect to this hub as a `host:port` string
 * --secret - optional passphrase to connect to the hub
 

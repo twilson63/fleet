@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 var argv = require('optimist').argv;
+if (!argv.name) argv.name = require('os').hostname();
+
 var propagit = require('propagit');
 var drone = propagit(argv).drone();
 
