@@ -49,7 +49,5 @@ Commands.prototype.stop = function (pid, cb) {
 }
 
 module.exports = function (opts) {
-    return new Commands(opts)
+    return new Commands(opts);
 }
-
-
