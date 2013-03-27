@@ -87,7 +87,7 @@ For help about a command, try `fleet help <command>`.
 tips
 ====
 
-* Fleet will acutally use two ports one for the hub and one for authentication. So if you start Fleet on port 7000 it will also use port 7001.
+* Fleet will acutally use two ports one for the control service and one for the git service. So if you start Fleet on port 7000 it will also use port 7001.
 
 license
 =======
