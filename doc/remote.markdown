@@ -41,3 +41,21 @@ Delete a remote named `<name>`.
 ### fleet remote ls
 
 List all the remotes from the `fleet.json`.
+
+### fleet remote set `<name>` [`<options>`]
+
+Update a remote with additional options
+
+`<options>` can include:
+
+* hub - where the fleet hub is running as a "host:port" string
+* secret - the plaintext password to use for authentication
+* env.`<name>` - Set environment variables to use with spawn and exec
+
+
+Example usage:
+
+Set remote with additional environment variables:
+
+    fleet remote set default --env.FOO=63
+    fleet remote set default --env.BAR=beep

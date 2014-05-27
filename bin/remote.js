@@ -19,6 +19,10 @@ else if (cmd === 'rm' || cmd === 'remove') {
 else if (cmd === 'ls' || cmd === 'list') {
     console.log(JSON.stringify(remote.list(), undefined, 2));
 }
+else if (cmd === 'set') {
+    var name = argv._[1] || 'default';
+    remote.set(name, { env: argv.env });
+}
 else {
-    console.error('Usage: fleet remote (add|rm|ls)');
+    console.error('Usage: fleet remote (add|set|rm|ls)');
 }
